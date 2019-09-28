@@ -48,5 +48,68 @@ class TicTacToe
     def turn 
       puts "Input position 1-9"
       input = gets
+      index = input_to_index(input)
+      token = current_player
+      if valid_move?(index)
+        move(index, token)
+        display_board
+      else
+        turn
+      end
+    end
+    
+    def won?
+      WIN_COMBINATIONS.detect do |win_combo|
+        if @board[win_combo[0]] == "X" &&
+          @board[win_combo[1]] == "X" &&
+          @board[win_combo[2]] == "X"
+          return win_combo
+        elsif
+          @board[win_combo[0]] == "O" &&
+          @board[win_combo[1]] == "O" &&
+          @board[win_combo[2]] == "O"
+          return win_combo
+        end
+      end
+    end
+    
+    def full?
+      @board.all? {|i| i == "X" || i == "O"}
+    end
+    
+    def draw?
+      !won? && full?
+    end
+    
+    def over?
+      won? || full?
+    end
+    
+    def winner
+      WIN_COMBINATIONS.detect do |win_combo|
+        if @board[win_combo[0]] == "X" &&
+          @board[win_combo[1]] == "X" &&
+          @board[win_combo[2]] == "X"
+          return "X"
+        elsif
+        @board[win_combo[0]] == "O" &&
+          @board[win_combo[1]] == "O" &&
+          @board[win_combo[2]] == "O"
+          return "O"
+        end
+      end
+    end
+    
+    def play
+      until over? || draw?
+        turn
+      end
+      won?
+        puts "Congratulations #{winner}!"
+      draw?
+        puts "Cat's Game!"
+      end
+      
+    end
       
       
