@@ -24,3 +24,29 @@ class TicTacToe
       user_input = input.to_i
       user_input - 1
     end
+    
+    def move(input_to_index, token = "X")
+      @board[input_to_index] = token
+    end
+    
+    def position_taken?(index)
+      (@board[index] == "X") || (@board[index] == "O")
+    end
+    
+    def valid_move?(index)
+      index.between?(0,8) && !position_taken?(index)
+    end
+    
+    def turn_count
+      @board.count{|token| token == "X" || token == "O"
+    end
+    
+    def current_player
+      turn_count % 2 == 0 ? "X" : "O"
+    end
+    
+    def turn 
+      puts "Input position 1-9"
+      input = gets
+      
+      
